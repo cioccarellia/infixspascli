@@ -184,10 +184,10 @@ Just clone the project, open it in IntelliJ Idea and let it sync. Under `scripte
 
 # Screenshots
 ### generated spas + parsed
-<img src="https://i.imgur.com/zhMe83d.png" />
+<img src="https://i.imgur.com/s66jv8C.png" />
 
 ### generated spas + output + parsed
-<img src="https://i.imgur.com/rNAv4Kp.png" />
+<img src="https://i.imgur.com/QJ46qou.png" />
 
 ### generates spas + output + error highlighting
 <img src="https://i.imgur.com/TSwNuP1.png" />
