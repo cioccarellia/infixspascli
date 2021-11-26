@@ -18,5 +18,5 @@ sealed class Token(
 ) {
     class BeginProblem(qualifier: String) : Token(beginToken = "problem", qualifier = qualifier)
     object EndProblem : Token(beginToken = "", qualifier = null)
-    class List(beginToken: String, qualifier: String?) : Token(beginToken, qualifier)
+    class ListComponent(beginToken: String, qualifier: String?) : Token(beginToken, qualifier)
 }

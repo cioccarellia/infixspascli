@@ -1,11 +1,10 @@
 package com.cioccarellia.infixspascli.spas.model.components
 
+import com.cioccarellia.infixspascli.spas.dsl.SpasDslMarker
 import com.cioccarellia.infixspascli.spas.model.ProblemComponent
 import com.cioccarellia.infixspascli.spas.model.Token
 
-/**
-end_problem.
- * */
+@SpasDslMarker
 class EndProblem : ProblemComponent() {
     override val token = Token.EndProblem
 

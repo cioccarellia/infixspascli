@@ -1,6 +1,5 @@
 package com.cioccarellia.infixspascli.spas.model.components
 
-import com.cioccarellia.infixspascli.spas.dsl.LogicalParts
 import com.cioccarellia.infixspascli.spas.dsl.SpasDslMarker
 import com.cioccarellia.infixspascli.spas.model.ProblemComponent
 import com.cioccarellia.infixspascli.spas.model.Token
@@ -15,11 +14,11 @@ end_of_list.
  * */
 @SpasDslMarker
 data class Settings(
-    val identifier: String = "SPASS",
-    val flagShowSolution: Boolean = true,   // PGiven
-    val flagShowProblem: Boolean = true     // PProblem
+    var identifier: String = "SPASS",
+    var flagShowSolution: Boolean = true,   // PGiven
+    var flagShowProblem: Boolean = true     // PProblem
 ) : ProblemComponent() {
-    override val token = Token.List(beginToken = "settings", qualifier = identifier)
+    override val token = Token.ListComponent(beginToken = "settings", qualifier = identifier)
 
     override fun spasText() = buildString {
         appendLine(startToken())

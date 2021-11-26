@@ -1,7 +1,7 @@
 package com.cioccarellia.infixspascli.log.debug
 
 object DfuLogger {
-    private val default = CustomLogger(tag = "Dfu")
+    private val default = CustomLogger(tag = "CLI")
 
     fun d(vararg values: Any?, prefix: String = "D") = default.d(values = values, prefix = prefix)
     fun i(vararg values: Any?, prefix: String = "D") = default.i(values = values, prefix = prefix)

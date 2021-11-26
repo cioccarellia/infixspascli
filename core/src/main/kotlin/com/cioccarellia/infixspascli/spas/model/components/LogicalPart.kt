@@ -13,5 +13,5 @@ abstract class LogicalPart(
     beginToken: String,
     qualifier: String?,
 ) : ProblemComponent() {
-    override val token = Token.List(beginToken = beginToken, qualifier = qualifier)
+    override val token = Token.ListComponent(beginToken = beginToken, qualifier = qualifier)
 }

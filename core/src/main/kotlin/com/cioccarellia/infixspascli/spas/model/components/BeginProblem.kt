@@ -1,13 +1,12 @@
 package com.cioccarellia.infixspascli.spas.model.components
 
+import com.cioccarellia.infixspascli.spas.dsl.SpasDslMarker
 import com.cioccarellia.infixspascli.spas.model.ProblemComponent
 import com.cioccarellia.infixspascli.spas.model.Token
 
-/**
-begin_problem(Pelletier54).
- * */
-data class BeginProblem(
-    val identifier: String
+@SpasDslMarker
+class BeginProblem(
+    identifier: String
 ) : ProblemComponent() {
     override val token = Token.BeginProblem(qualifier = identifier)
 

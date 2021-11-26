@@ -8,7 +8,7 @@ class Symbols(
     /**
      * Actual language symbol definition
      * */
-    val symbolList: MutableList<Pair<String, Pair<String, Int>>> = mutableListOf()
+    private val symbolList: MutableList<Pair<String, Pair<String, Int>>> = mutableListOf()
 ) : LogicalPart(beginToken = "symbols", qualifier = null) {
 
     override fun spasText() = buildString {

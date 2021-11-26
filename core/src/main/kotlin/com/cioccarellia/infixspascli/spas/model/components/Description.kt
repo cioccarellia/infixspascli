@@ -1,5 +1,6 @@
 package com.cioccarellia.infixspascli.spas.model.components
 
+import com.cioccarellia.infixspascli.spas.dsl.SpasDslMarker
 import com.cioccarellia.infixspascli.spas.model.ProblemComponent
 import com.cioccarellia.infixspascli.spas.model.Token
 
@@ -11,13 +12,14 @@ enum class Status {
     }
 }
 
+@SpasDslMarker
 data class Description(
-    val name: String = "InfixSpasCliProblem",
-    val author: String = "Roda77",
-    val status: Status = Status.UNSATISFIABLE,
-    val description: String = "Inutile",
+    var name: String = "InfixSpasCliProblem",
+    var author: String = "Roda77",
+    var status: Status = Status.UNSATISFIABLE,
+    var description: String = "Inutile",
 ) : ProblemComponent() {
-    override val token = Token.List(beginToken = "descriptions", null)
+    override val token = Token.ListComponent(beginToken = "descriptions", null)
 
     override fun spasText() = buildString {
         appendLine(startToken())

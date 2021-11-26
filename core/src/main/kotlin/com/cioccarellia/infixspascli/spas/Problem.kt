@@ -1,10 +1,12 @@
 package com.cioccarellia.infixspascli.spas
 
 import com.cioccarellia.infixspascli.spas.dsl.LogicalParts
+import com.cioccarellia.infixspascli.spas.dsl.SpasDslMarker
 import com.cioccarellia.infixspascli.spas.model.components.*
 import com.cioccarellia.infixspascli.spas.model.components.logicparts.Formulae
 import com.cioccarellia.infixspascli.spas.model.components.logicparts.Symbols
 
+@SpasDslMarker
 class Problem {
     /**
      * Spas problem header
@@ -55,7 +57,10 @@ class Problem {
         endProblem = endProblem.apply(lambda)
     }
 
-    override fun toString(): String {
+    /**
+     * Used to translate model to spas language
+     * */
+    fun compileToSpas(): String {
         return buildString {
             appendLine("% BeginProblem")
             appendLine(beginProblem.spasText())
