@@ -1,5 +1,5 @@
 # Infix Spas CLI (With LaTeX notation)
-This project is a Kotlin CLI tool used to access the SPAS [web interface](https://webspass.spass-prover.org/) APIs using Kotlin idiomatic and modern language features, and remapping the syntax to match LaTeX actual binary operator naming conventions.
+This project is a Kotlin CLI project used to access the [SPAS web](https://webspass.spass-prover.org/) APIs using Kotlin idiomatic and modern language features, and remapping the syntax to match LaTeX actual binary operator naming conventions for the theorem prover.
 
 This project includes:
 - A Kotlin DSL to create propositional logic / first-order logic constants, functions and predicates to compose theorems and formulaes;
@@ -16,6 +16,16 @@ Main goals of this project are:
 - Output formatted and colored output in the terminal;
 - Include automatic proof completion & error detection, filtering and highlighting at column precision;
 - Use Kotlin `infix` functions and extension functions to use a more natural _infix_ or _postfix_ binary relation notation, instead of defaulting to _prefix_ which is hardcoded in spas;
+
+The code in this repository models a spas problem using Kotlin classes. 
+This model is then compiled to spas syntax, sent to the webserver, processed, and the response is parsed and analyzed back by the program.
+
+There are 2 modules:
+- `:core`: Contains the logic, scraping engine and models;
+- `:scripter`: Contains `Main.kt` file which can be used to create and execute spas models.
+
+
+This model is then compiled to spas syntax, sent to the webserver, processed, and the response is parsed and analyzed back by the program.
 
 # Problem Anatomy
 A Problem is defined by 5 components:
@@ -168,19 +178,23 @@ eq("A", "B")
 
 
 // ∀ UNIVERSAL QUANTIFIER
-forall(listOf("A", "B", "C", ...), E)
-forall("A", "B", "C", ..., matrix = E)
-forall("X", E)
+forall(listOf("A", "B", "C", ...), M)
+forall("A", "B", "C", ..., matrix = M)
+forall("X", M)
 
 
 // ∃ (EXISTENCE QUANTIFIER)
-exists(listOf("A", "B", "C", ...), E)
-exists("A", "B", "C", ..., matrix = E)
-exists("X", E)
+exists(listOf("A", "B", "C", ...), M)
+exists("A", "B", "C", ..., matrix = M)
+exists("X", M)
 ```
 
+Note: the universal quantifiers receive `vararg` input + 1 string, so in case you are working with 2+ variables, the actual matrix has to be specified if you want to use linear parameters, or a list of variables can be supplied.
+
 # Usage
-Just clone the project, open it in IntelliJ Idea and let it sync. Under `scripter/src/main/kotlin` you will find a `Main.kt` file which has an example project. You can use the "Run SPAS" config to compile and execute your code.
+Just clone the project and open it in IntelliJ Idea. 
+Under `scripter/src/main/kotlin` you will find a `Main.kt` file which has an example problem. 
+You can use the "Run SPAS" configuration to compile and execute your code from the Run/Debug configuration menu.
 
 # Screenshots
 ### generated spas + parsed
