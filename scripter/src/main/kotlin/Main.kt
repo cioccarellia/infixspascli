@@ -3,8 +3,10 @@ import com.cioccarellia.infixspascli.logic.Leftrightarrow
 import com.cioccarellia.infixspascli.logic.forall
 import com.cioccarellia.infixspascli.spas.problem
 
+/*
+ * This is your problem object.
+ * */
 val spasProblem = problem {
-    beginProblem {}
     description {
         author = "Andrea Cioccarelli"
         name = "SPAS Sample project"
@@ -40,8 +42,6 @@ val spasProblem = problem {
     settings {
         flagShowProblem = true
         flagShowSolution = true
-    }
-    endProblem {
     }
 }
 

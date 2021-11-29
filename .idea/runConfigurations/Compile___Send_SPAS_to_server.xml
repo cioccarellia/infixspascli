@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run SPAS" type="JetRunConfigurationType">
+  <configuration default="false" name="Compile &amp; Send SPAS to server" type="JetRunConfigurationType">
     <option name="MAIN_CLASS_NAME" value="MainKt" />
     <module name="infixspascli.scripter.main" />
     <shortenClasspath name="NONE" />

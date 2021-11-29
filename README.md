@@ -27,35 +27,53 @@ There are 2 modules:
 
 This model is then compiled to spas syntax, sent to the webserver, processed, and the response is parsed and analyzed back by the program.
 
-# Problem Anatomy
-A Problem is defined by 5 components:
+# Problem Anatomy & Kotlin Model
+A Problem in SPAS syntax is defined by 5 components:
 - Begin of problem
 - Description
 - Logic
 - Settings
 - End of problem
 
-Each block is mandatory in SPAS language and has to be filled in.
+Each block is mandatory and has to be filled in. This is what makes its syntax tedious and error-prone.
 
-We can define a `Problem` object by using the DSL-access function `problem {}`. This pre-populates all the default components to their default values (which, apart from logic which is where the actual work resides, is not relevant to the final problem solution).
+We can define a `Problem` object by using the entry DSL-access function `problem {}`. 
 
-So a complete declaration would look like this (even though `beginProblem`, `description`, `settings` and `endProblem` can be removed if not changed):
+This pre-populates *all* the default problem components (bop, desc, logic, settings, eop) to their default values (which, apart from `logic` which is where the actual code has to be written, is not relevant to the final problem solution).
+
+This makes it really fast to get started with the logic, since all the other 4 components can be left as default or customized later on.
+
+Therefore, a complete declaration would look like this:
 ```kotlin
 problem {
-        beginProblem {}
-        description {}
+    beginProblem {}
+    description {}
 
-        logic {
-            symbols {  }
+    logic {
+        symbols {  }
 
-            formulae("axioms") {  }
+        formulae("axioms") {  }
 
-            formulae("conjectures") {  }
-        }
-
-        settings {}
-        endProblem {}
+        formulae("conjectures") {  }
     }
+
+    settings {}
+    endProblem {}
+}
+```
+
+Which compiled to the same spas-code as this:
+
+```kotlin
+problem {
+    logic {
+        symbols {  }
+        
+        formulae("axioms") {  }
+        
+        formulae("conjectures") {  }
+    }
+}
 ```
 
 
@@ -97,50 +115,62 @@ logic {
 
 Putting it all together (as you can see in scripter/.../Main.kt):
 ```kotlin
-fun main(args: Array<String>) = SpasProcessor.submit(
-    problem {
-        beginProblem {}
-        description {}
+val spasProblem = problem {
+    beginProblem {}
+    description {}
 
-        logic {
-            val A = "Agata"
-            val pi_greco = "PI"
+    logic {
+        val A = "Agata"
+        val pi_greco = "PI"
 
-            symbols {
-                symbolGroup("functions", listOf(
-                    pi_greco to 0,
-                ))
-                symbolGroup("predicates", listOf(
-                    A to 0
-                ))
-            }
-
-            formulae("axioms") {
-                // Nessun assioma
-            }
-
-            formulae("conjectures") {
-                val xVarLongName = "X"
-
-                formula(
-                    forall(xVarLongName, A Leftrightarrow A)
-                )
-            }
+        symbols {
+            symbolGroup("functions", listOf(
+                pi_greco to 0,
+            ))
+            symbolGroup("predicates", listOf(
+                A to 0
+            ))
         }
 
-        settings {}
-        endProblem {}
+        formulae("axioms") {
+            // Nessun assioma
+        }
+
+        formulae("conjectures") {
+            val xVarLongName = "X"
+
+            formula(
+                forall(xVarLongName, A Leftrightarrow A)
+            )
+        }
     }
-)
+
+    settings {}
+    endProblem {}
+}
+
+fun main(args: Array<String>) { 
+    SpasProcessor.submit(spasProblem)
+}
 ```
 
-# Logic Functions
-All more-than-binary relations support vararg inputs in prefix form.
+# Primitive Logic Functions
+SPAS language offers a set of "primitive" (basic) logic functions, which have been individually mapped to kotlin using LaTeX syntax.
 
-All binary relation functions support infix notation.
+They are mapped as follows:
 
-All unary operators support prefix and postfix notation.
+| LaTeX Symbol | LaTeX Syntax    | Kotlin function     | Spas equivalent |
+|--------------|-----------------|---------------------|-----------------|
+| ∧            | \wedge          | wedge(X,Y)          | and(X,Y)        |
+| ∨            | \vee            | ∨ee(X,Y)            | or(X,Y)         |
+| ¬            | \lnot           | lnot(X,Y)           | not(X,Y)        |
+| ⇒            | \Rightarrow     | Rightarrow(X,Y)     | implies(X,Y)    |
+| ⇐            | \Leftarrow      | Leftarrow(X,Y)      | implied(X,Y)    |
+| ⇔            | \Leftrightarrow | Leftrightarrow(X,Y) | equiv(X,Y)      |
+| ∀            | \forall         | forall(X,Y)         | forall([X],Y)   |
+| ∃            | \exists         | exists(X,Y)         | exists([X],Y)   |
 
+Those are the alternative code syntaxes available on infixspascli:
 ```kotlin
 // ∧ (LOGICAL AND)
 "A" wedge "B"
@@ -178,23 +208,43 @@ eq("A", "B")
 
 
 // ∀ UNIVERSAL QUANTIFIER
-forall(listOf("A", "B", "C", ...), M)
-forall("A", "B", "C", ..., matrix = M)
 forall("X", M)
+forall("A", "B", "C", ..., matrix = M)
+forall(listOf("A", "B", "C", ...), M)
 
 
 // ∃ (EXISTENCE QUANTIFIER)
-exists(listOf("A", "B", "C", ...), M)
-exists("A", "B", "C", ..., matrix = M)
 exists("X", M)
+exists("A", "B", "C", ..., matrix = M)
+exists(listOf("A", "B", "C", ...), M)
 ```
 
-Note: the universal quantifiers receive `vararg` input + 1 string, so in case you are working with 2+ variables, the actual matrix has to be specified if you want to use linear parameters, or a list of variables can be supplied.
+Notes:
+- All more-than-binary relations support vararg inputs in prefix form.
+- All binary relation functions support infix notation.
+- All unary operators support prefix and postfix notation.
+- The universal quantifiers receive `vararg` inputs + 1 string, so in case you are working with 2+ variables, the actual construct matrix has to be specified (if you want to use linear parameters), otherwise a list of variables can be supplied.
+- No universal quantifiers infix functions have been created, because it doesn't make intuitive sense to type constructs with syntaxes like "X forall (X Rightarrow P)".
 
-# Usage
-Just clone the project and open it in IntelliJ Idea. 
+# Extended logic functions
+Having the ability to compile to spas, we can take the liberty to create other useful logic functions on top of all the primitive ones, which acts as syntactic sugar.
+
+| LaTeX Symbol | LaTeX Syntax    | Kotlin function     | Spas equivalent                     |
+|--------------|-----------------|---------------------|-------------------------------------|
+| ↑            | N.A. (NOR)      | nor(X,Y)            | not(or(X,Y))                        |
+| ↓            | N.A. (NAND)     | nand(X,Y)           | nor(and(X,Y))                       |
+| ⊕            | N.A. (XOR)      | xor(X,Y)            | or(and(X, not(Y)), and(not(X), Y))) |
+| ⊙            | N.A. (XNOR)     | xnor(X,Y)           | or(and(X,Y), and(not(X), not(Y)))   |
+
+
+# Usage & Build Details
+This project is optimized (and recommended) for IntelliJ Idea.
+Just clone the project and import it using the IDE. It will automatically prepare, download and index the required dependencies.
+
 Under `scripter/src/main/kotlin` you will find a `Main.kt` file which has an example problem. 
 You can use the "Run SPAS" configuration to compile and execute your code from the Run/Debug configuration menu.
+
+This project targeted sdk version is 1.8 (Java 8 language features)
 
 # Screenshots
 ### generated spas + parsed

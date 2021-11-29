@@ -5,6 +5,7 @@ import com.cioccarellia.infixspascli.spas.model.ProblemComponent
 import com.cioccarellia.infixspascli.spas.model.Token
 
 /**
+ * Sample encoding:
 list_of_settings(SPASS).
 {*
 set_flag(PGiven,1).
