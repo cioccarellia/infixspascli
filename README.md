@@ -1,7 +1,7 @@
 # Infix Spas CLI (With LaTeX notation)
-This project is a Kotlin CLI project used to access the [SPAS web](https://webspass.spass-prover.org/) APIs using Kotlin idiomatic and modern language features, and remapping the syntax to match LaTeX actual binary operator naming conventions for the theorem prover.
+This project is a Kotlin CLI used to access the [SPAS web](https://webspass.spass-prover.org/) APIs using Kotlin idiomatic and modern language features, and remapping the syntax to match LaTeX actual binary operator naming conventions for the theorem prover.
 
-This project includes:
+This repository includes:
 - A Kotlin DSL to create propositional logic / first-order logic constants, functions and predicates to compose theorems and formulaes;
 - A (partial) model of [SPAS syntax](https://webspass.spass-prover.org/help/spass-input-syntax15.pdf) for problems in the SPAS input syntax;
 - A module for sending HTTP requests;
