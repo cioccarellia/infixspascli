@@ -6,7 +6,7 @@ import com.cioccarellia.infixspascli.spas.model.Token
 
 @SpasDslMarker
 class BeginProblem(
-    identifier: String
+    var identifier: String
 ) : ProblemComponent() {
     override val token = Token.BeginProblem(qualifier = identifier)
 

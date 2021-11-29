@@ -4,7 +4,7 @@ import com.cioccarellia.infixspascli.spas.dsl.SpasDslMarker
 import com.cioccarellia.infixspascli.spas.model.ProblemComponent
 import com.cioccarellia.infixspascli.spas.model.Token
 
-enum class Status {
+enum class ProbelmStatus {
     SATISFIABLE, UNSATISFIABLE, UNKNOWN;
 
     override fun toString(): String {
@@ -16,7 +16,7 @@ enum class Status {
 data class Description(
     var name: String = "InfixSpasCliProblem",
     var author: String = "Roda77",
-    var status: Status = Status.UNSATISFIABLE,
+    var status: ProbelmStatus = ProbelmStatus.UNSATISFIABLE,
     var description: String = "Inutile",
 ) : ProblemComponent() {
     override val token = Token.ListComponent(beginToken = "descriptions", null)

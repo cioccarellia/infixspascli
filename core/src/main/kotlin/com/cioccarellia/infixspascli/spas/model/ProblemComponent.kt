@@ -35,4 +35,8 @@ abstract class ProblemComponent {
     override fun toString(): String {
         return spasText()
     }
+
+    companion object {
+        const val EMPTY_SET = "{**}"
+    }
 }
