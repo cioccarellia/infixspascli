@@ -1,5 +1,5 @@
 # Infix SPAS CLI (With LaTeX notation)
-This project is a Kotlin CLI used to access the [SPAS web APIs](https://webspass.spass-prover.org/) using Kotlin idiomatic and modern language features, while simultaneously mapping kotlin functions to match LaTeX actual operator naming conventions.
+This project is a Kotlin CLI used to access the [SPAS web APIs](https://webspass.spass-prover.org/) using Kotlin idiomatic and modern language features, while simultaneously mapping functions to match LaTeX actual operator naming conventions.
 
 
 This repository includes:
@@ -40,7 +40,7 @@ Each block is mandatory and has to be filled in. This is what makes its syntax t
 
 We can define a `Problem` object by using the entry DSL-access function `problem {}`. 
 
-This pre-populates *all* the default problem components (`bop`, `desc`, `logic`, `settings`, `eop`) to their default values (which, apart from `logic` which is where the actual code has to be written, is not relevant to the final problem solution).
+This repopulates *all* the default problem components (`bop`, `desc`, `logic`, `settings`, `eop`) to their default values (which, apart from `logic` which is where the actual code has to be written, is not relevant to the final problem solution).
 
 This makes it really fast to get started with the logic, since all the other 4 components can be left at their default value, or tailored later on.
 
@@ -223,8 +223,8 @@ fun main(args: Array<String>) {
     SpasProcessor.submit(spasProblem)
 }
 ```
-Notably, declaring variables or function within the DSL does not alter the DSL tata itself, as it is the case for `A`, `pi_greco` or `xVarLongName`.
-They are used to simplify the problem declaration process.
+Notably, declaring variables or function within the DSL does not alter the DSL data itself, as it is the case for `A`, `pi_greco` or `xVarLongName`.
+They are used to simplifying the problem declaration process.
 
 
 ### Settings
